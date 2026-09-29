@@ -648,8 +648,8 @@ export default function GallerySection() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <div className="mt-6 flex max-w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <div className="flex gap-1.5 rounded-full border border-[#E4DDD1] bg-white p-1 shadow-[0_4px_18px_rgba(31,41,51,0.04)]">
+            <div className="mt-6 flex w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex w-max min-w-max shrink-0 gap-1.5 rounded-full border border-[#E4DDD1] bg-white p-1 shadow-[0_4px_18px_rgba(31,41,51,0.04)]">
                 {galleryCategories.map((category) => {
                   const active =
                     activeCategory === category.id

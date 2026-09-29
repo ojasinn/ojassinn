@@ -225,10 +225,12 @@ function MobileSecondaryAmenity({ amenity }) {
 
   return (
     <div
-      className="group flex min-h-[64px] items-center gap-3 rounded-xl
+      className="group flex min-h-[64px] min-w-0 items-center gap-3 rounded-xl
                  border border-gold/15 bg-[#F8F3EA] px-4 py-3
                  transition-all duration-300
-                 hover:border-gold/30 hover:bg-white"
+                 hover:border-gold/30 hover:bg-white
+                 dark:border-white/10 dark:bg-[#2A3A48]
+                 dark:hover:border-gold/30 dark:hover:bg-[#334A5A]"
     >
       <span
         className="grid h-9 w-9 shrink-0 place-items-center rounded-full
@@ -242,9 +244,9 @@ function MobileSecondaryAmenity({ amenity }) {
       </span>
 
       <span
-        className="font-display text-[0.88rem] leading-[1.2]
+        className="min-w-0 break-words font-display text-[0.88rem] leading-[1.2]
                    text-ink transition-colors duration-300
-                   group-hover:text-gold"
+                   group-hover:text-gold dark:text-[#F6F3ED]"
       >
         {amenity.name}
       </span>
