@@ -1,0 +1,1989 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   OJAS INN — HOTEL PRODUCT UI
+   Light-first, warm, photographic, compact and conversion-focused.
+   ================================================================ */
+
+:root {
+  --c-bg: 250 248 244;
+  --c-alt: 244 241 235;
+  --c-surface: 255 255 255;
+  --c-line: 224 220 211;
+  --c-ink: 15 35 53;
+  --c-muted: 91 105 119;
+  --c-gold: 177 132 55;
+  --c-champagne: 221 184 111;
+
+  --shadow-soft:
+    0 1px 2px rgb(15 35 53 / 0.04),
+    0 10px 30px rgb(15 35 53 / 0.06);
+
+  --shadow-card:
+    0 2px 4px rgb(15 35 53 / 0.04),
+    0 18px 50px rgb(15 35 53 / 0.10);
+
+  --shadow-float:
+    0 12px 45px rgb(15 35 53 / 0.16);
+
+  --grain-opacity: 0.018;
+}
+
+.dark {
+  --c-bg: 29 43 56;
+  --c-alt: 35 50 63;
+  --c-surface: 42 58 72;
+  --c-line: 76 94 108;
+  --c-ink: 246 243 237;
+  --c-muted: 190 201 209;
+  --c-gold: 221 184 111;
+  --c-champagne: 235 210 160;
+
+  --shadow-soft:
+    0 1px 2px rgb(0 0 0 / 0.25),
+    0 12px 35px rgb(0 0 0 / 0.22);
+
+  --shadow-card:
+    0 3px 6px rgb(0 0 0 / 0.25),
+    0 20px 55px rgb(0 0 0 / 0.32);
+
+  --shadow-float:
+    0 15px 55px rgb(0 0 0 / 0.40);
+
+  --grain-opacity: 0.012;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    font-optical-sizing: auto;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    transition:
+      background-color 400ms ease,
+      color 400ms ease;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='180'height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-normal text-ink;
+  }
+
+  ::selection {
+    background: rgb(var(--c-gold) / 0.20);
+    color: rgb(var(--c-ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-gold));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* ---------- Layout ---------- */
+
+  .section {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .container {
+    @apply mx-auto w-full px-5 sm:px-7 lg:px-10 xl:px-12;
+  }
+
+  .eyebrow {
+    @apply font-sans text-2xs font-semibold uppercase tracking-mega text-gold;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-line;
+  }
+
+  /* ---------- Buttons ---------- */
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full
+           px-6 py-3 font-sans text-[0.75rem] font-semibold uppercase
+           tracking-wider2 transition-all duration-300;
+    will-change: transform;
+  }
+
+  .btn-primary {
+    background: rgb(var(--c-ink));
+    color: rgb(var(--c-bg));
+    box-shadow: var(--shadow-soft);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .btn-outline {
+    @apply border border-line bg-surface text-ink;
+    box-shadow: 0 1px 2px rgb(var(--c-ink) / 0.02);
+  }
+
+  .btn-outline:hover {
+    @apply border-gold text-gold;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .btn-on-image {
+    @apply border border-white/40 bg-white/10 text-white backdrop-blur-xl;
+  }
+
+  .btn-on-image:hover {
+    @apply border-white/70 bg-white/20;
+    transform: translateY(-2px);
+  }
+
+  .btn-on-image-solid {
+    @apply bg-white text-[#102337];
+    box-shadow: 0 12px 35px rgb(0 0 0 / 0.18);
+  }
+
+  .btn-on-image-solid:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 45px rgb(0 0 0 / 0.24);
+  }
+
+  .btn .btn-arrow {
+    @apply transition-transform duration-300;
+  }
+
+  .btn:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  /* ---------- Links ---------- */
+
+  .link-underline {
+    @apply relative inline-block text-ink transition-colors duration-300;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-gold;
+    transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link-underline:hover {
+    @apply text-gold;
+  }
+
+  .link-underline:hover::after {
+    @apply origin-left scale-x-100;
+  }
+
+  /* ---------- Cards ---------- */
+
+  .hotel-card {
+    @apply border border-line bg-surface;
+    box-shadow: var(--shadow-soft);
+    transition:
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 300ms ease;
+  }
+
+  .hotel-card:hover {
+    transform: translateY(-5px);
+    border-color: rgb(var(--c-gold) / 0.45);
+    box-shadow: var(--shadow-card);
+  }
+
+  .glass {
+    @apply border border-white/30 bg-white/15 backdrop-blur-2xl;
+    box-shadow: 0 20px 55px rgb(0 0 0 / 0.14);
+  }
+
+  .glass-light {
+    @apply border border-line/80 bg-white/80 backdrop-blur-xl;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ---------- Form ---------- */
+
+  .field-label {
+    @apply mb-2 block font-sans text-2xs font-semibold uppercase tracking-wider2 text-muted;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-line bg-surface px-4 py-3
+           font-sans text-[0.9375rem] text-ink
+           transition-all duration-200;
+  }
+
+  .field:hover {
+    @apply border-gold/60;
+  }
+
+  .field:focus {
+    @apply border-gold outline-none;
+    box-shadow: 0 0 0 3px rgb(var(--c-gold) / 0.10);
+  }
+
+  /* ---------- Hero overlays ---------- */
+
+  .hero-scrim {
+    background:
+      linear-gradient(
+        90deg,
+        rgb(8 20 31 / 0.48) 0%,
+        rgb(8 20 31 / 0.24) 38%,
+        rgb(8 20 31 / 0.05) 70%,
+        rgb(8 20 31 / 0.10) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgb(8 20 31 / 0.28) 0%,
+        transparent 48%
+      );
+  }
+
+  .hero-glass {
+    background: rgb(255 255 255 / 0.90);
+    border: 1px solid rgb(255 255 255 / 0.75);
+    box-shadow: 0 24px 70px rgb(0 0 0 / 0.20);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* ---------- Utility ---------- */
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .pb-safe {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .surface-raise {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .surface-float {
+    box-shadow: var(--shadow-float);
+  }
+
+  .scrim-full {
+    background: transparent;
+  }
+
+  .scrim-bottom {
+    background:
+      linear-gradient(
+        to top,
+        rgb(6 15 24 / 0.58) 0%,
+        rgb(6 15 24 / 0.20) 40%,
+        transparent 100%
+      );
+  }
+}
+
+/* ================================================================
+   OJAS INN — REFINED DARK MODE
+   ================================================================ */
+
+.dark body {
+  background: rgb(29 43 56);
+  color: rgb(246 243 237);
+}
+
+/* Theme-variable surfaces */
+
+.dark .bg-bg {
+  background-color: rgb(var(--c-bg)) !important;
+}
+
+.dark .bg-alt {
+  background-color: rgb(var(--c-alt)) !important;
+}
+
+.dark .bg-surface {
+  background-color: rgb(var(--c-surface)) !important;
+}
+
+.dark .text-ink {
+  color: rgb(var(--c-ink)) !important;
+}
+
+.dark .text-muted {
+  color: rgb(var(--c-muted)) !important;
+}
+
+.dark .border-line {
+  border-color: rgb(var(--c-line)) !important;
+}
+
+/* Normal light section backgrounds */
+
+.dark section.bg-white,
+.dark div.bg-white,
+.dark [class~="bg-white"] {
+  background-color: rgb(var(--c-surface)) !important;
+}
+
+/* Known light editorial surfaces */
+
+.dark [class*="bg-[#ECE8E0]"] {
+  background-color: rgb(43 57 69) !important;
+}
+
+.dark [class*="bg-[#E5DED2]"] {
+  background-color: rgb(48 61 72) !important;
+}
+
+.dark [class*="bg-[#FBFAF7]"] {
+  background-color: rgb(var(--c-bg)) !important;
+}
+
+.dark [class*="bg-[#FBF9F5]"] {
+  background-color: rgb(var(--c-bg)) !important;
+}
+
+.dark [class*="bg-[#F4F0E9]"] {
+  background-color: rgb(42 57 69) !important;
+}
+
+.dark [class*="bg-[#EDE3D2]"],
+.dark [class*="bg-[#F3EBDD]"],
+.dark [class*="bg-[#E7DECF]"] {
+  background-color: rgb(48 60 71) !important;
+}
+
+/* Hard-coded editorial text colors */
+
+.dark [class*="text-[#202A33]"],
+.dark [class*="text-[#1F2933]"],
+.dark [class*="text-[#263746]"] {
+  color: rgb(244 241 235) !important;
+}
+
+.dark [class*="text-[#737A80]"],
+.dark [class*="text-[#6E767D]"] {
+  color: rgb(190 201 209) !important;
+}
+
+/* Gallery gold text */
+
+.dark [class*="text-[#A47A32]"],
+.dark [class*="text-[#8D672C]"] {
+  color: rgb(225 188 112) !important;
+}
+
+/* Hard-coded light borders */
+
+.dark [class*="border-[#E4DDD1]"] {
+  border-color: rgb(var(--c-line)) !important;
+}
+
+/* Soft cards */
+
+.dark .hotel-card {
+  background-color: rgb(42 58 72);
+  border-color: rgb(91 108 120 / 0.55);
+}
+
+/* Forms */
+
+.dark .field {
+  background-color: rgb(38 53 66);
+  color: rgb(246 243 237);
+  border-color: rgb(91 108 120 / 0.7);
+}
+
+.dark .field::placeholder {
+  color: rgb(176 188 197);
+}
+
+/* Light glass */
+
+.dark .glass-light {
+  background: rgb(48 63 75 / 0.88);
+  border-color: rgb(255 255 255 / 0.12);
+}
+
+/* Hero glass */
+
+.dark .hero-glass {
+  background: rgb(42 58 72 / 0.90);
+  border-color: rgb(255 255 255 / 0.12);
+}
+
+/* Image CTA remains readable */
+
+.dark .btn-on-image-solid {
+  background: rgb(var(--c-surface));
+  color: rgb(var(--c-ink));
+}
+
+/* Outline buttons */
+
+.dark .btn-outline {
+  background: rgb(42 58 72);
+  color: rgb(246 243 237);
+  border-color: rgb(91 108 120 / 0.7);
+}
+
+/* Primary buttons */
+
+.dark .btn-primary {
+  background: rgb(225 188 112);
+  color: rgb(29 43 56);
+}
+
+/* ================================================================
+   OJAS BOT — DARK MODE + EQUAL LOCATION CARDS
+   ================================================================ */
+
+/* The bot uses a deliberately warm light background in light mode.
+   In dark mode it must follow the active theme. */
+
+.dark aside[aria-label="Ojas"] {
+  background-color: rgb(var(--c-surface));
+  border-color: rgb(var(--c-line));
+}
+
+.dark aside[aria-label="Ojas"] [class*="bg-[#FBF9F5]"] {
+  background-color: rgb(var(--c-bg)) !important;
+}
+
+/* Bot's white cards become proper dark surfaces */
+
+.dark aside[aria-label="Ojas"] [class~="bg-white"] {
+  background-color: rgb(var(--c-surface)) !important;
+}
+
+/* Bot's hard-coded bot-bubble text */
+
+.dark aside[aria-label="Ojas"] [class*="text-[#263746]"] {
+  color: rgb(var(--c-ink)) !important;
+}
+
+/* Location nearby cards:
+   the grid immediately before the Get Directions CTA is the
+   location grid. Give both rows the same fixed height so all
+   four cards line up cleanly. */
+
+aside[aria-label="Ojas"] .grid-cols-2:has(+ a.btn-primary) {
+  grid-auto-rows: 112px;
+}
+
+aside[aria-label="Ojas"] .grid-cols-2:has(+ a.btn-primary) > * {
+  min-height: 0;
+  height: 100%;
+}
+
+/* Don't alter image-overlay white text or intentionally dark components. */
+
+.dark ::selection {
+  background: rgb(225 188 112 / 0.30);
+  color: rgb(255 255 255);
+}
+
+/* ================================================================
+   FINAL DARK-MODE POLISH
+   OJAS INN
+   ================================================================ */
+
+/* ---------- Room cards ---------- */
+
+.dark #rooms .bg-ink {
+  background: rgb(225 188 112) !important;
+  color: rgb(29 43 56) !important;
+}
+
+.dark #rooms .bg-ink:hover {
+  background: rgb(235 205 145) !important;
+  color: rgb(29 43 56) !important;
+}
+
+.dark #rooms button[class*="bg-bg"] {
+  background: rgb(35 50 63) !important;
+  color: rgb(246 243 237) !important;
+  border-color: rgb(76 94 108) !important;
+}
+
+.dark #rooms button[class*="bg-bg"]:hover {
+  background: rgb(221 184 111 / 0.12) !important;
+  color: rgb(221 184 111) !important;
+}
+
+
+/* ---------- Reviews ---------- */
+
+.dark #reviews {
+  background: rgb(35 50 63) !important;
+}
+
+.dark #reviews h2,
+.dark #reviews article .text-ink {
+  color: rgb(246 243 237) !important;
+}
+
+.dark #reviews article:nth-child(1) {
+  background: rgb(48 59 69) !important;
+  border-color: rgb(112 91 57) !important;
+}
+
+.dark #reviews article:nth-child(2) {
+  background: rgb(47 62 57) !important;
+  border-color: rgb(91 112 92) !important;
+}
+
+.dark #reviews article:nth-child(3) {
+  background: rgb(65 55 55) !important;
+  border-color: rgb(119 88 78) !important;
+}
+
+.dark #reviews article [class~="bg-white/70"] {
+  background: rgb(246 243 237 / 0.08) !important;
+  color: rgb(190 201 209) !important;
+}
+
+.dark #reviews article [class~="border-black/5"] {
+  border-color: rgb(255 255 255 / 0.10) !important;
+}
+
+.dark #reviews article [class~="border-white/80"] {
+  border-color: rgb(255 255 255 / 0.18) !important;
+}
+
+.dark #reviews [class~="bg-white/90"] {
+  background: rgb(42 58 72 / 0.96) !important;
+  border-color: rgb(91 108 120) !important;
+}
+
+.dark #reviews [class~="bg-white/80"] {
+  background: rgb(42 58 72 / 0.96) !important;
+  border-color: rgb(91 108 120) !important;
+}
+
+.dark #reviews [class~="bg-white/80"]:hover {
+  background: rgb(48 65 78) !important;
+}
+
+.dark #reviews [class~="bg-[#f4ead9]"] {
+  background: rgb(221 184 111 / 0.16) !important;
+  color: rgb(235 210 160) !important;
+}
+
+.dark #reviews [class~="bg-[#d8cdbd]"] {
+  background: rgb(91 108 120) !important;
+}
+
+.dark #reviews [class~="bg-[#d8cdbd]"]:hover {
+  background: rgb(221 184 111 / 0.55) !important;
+}
+
+.dark #reviews [class~="bg-[#dfd5c5]"] {
+  background: rgb(91 108 120) !important;
+}
+
+.dark #reviews [class~="border-[#d8c7a9]"],
+.dark #reviews [class~="border-[#d9cdbb]"] {
+  border-color: rgb(91 108 120) !important;
+}
+
+.dark #reviews [class~="text-[#b4873d]"] {
+  color: rgb(235 195 118) !important;
+}
+
+
+/* ---------- Ojas chatbot ---------- */
+
+.dark aside[aria-label="Ojas"] {
+  background: rgb(42 58 72) !important;
+  color: rgb(246 243 237) !important;
+}
+
+.dark aside[aria-label="Ojas"] .bg-white {
+  background: rgb(48 65 78) !important;
+}
+
+.dark aside[aria-label="Ojas"] .text-ink {
+  color: rgb(246 243 237) !important;
+}
+
+.dark aside[aria-label="Ojas"] .text-muted {
+  color: rgb(190 201 209) !important;
+}
+
+.dark aside[aria-label="Ojas"] .border-line {
+  border-color: rgb(76 94 108) !important;
+}
+
+.dark aside[aria-label="Ojas"] .btn-primary {
+  background: rgb(225 188 112) !important;
+  color: rgb(29 43 56) !important;
+}
+
+.dark aside[aria-label="Ojas"] .btn-primary:hover {
+  background: rgb(235 205 145) !important;
+}
+
+
+/* Welcome menu:
+   exactly 9 buttons = 2 columns × equal-height rows.
+   This specifically targets the welcome menu and does not affect
+   the facilities/location/stay grids. */
+
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> button:nth-child(9)) {
+  grid-auto-rows: minmax(64px, 1fr);
+  align-items: stretch;
+}
+
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> button:nth-child(9)) > button {
+  min-height: 64px;
+  height: 100%;
+  align-self: stretch;
+}
+
+
+/* Make every welcome choice vertically centered and stable. */
+
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> button:nth-child(9)) > button > span {
+  min-width: 0;
+}
+
+
+/* ---------- Bot inputs ---------- */
+
+.dark aside[aria-label="Ojas"] input,
+.dark aside[aria-label="Ojas"] textarea,
+.dark aside[aria-label="Ojas"] select {
+  background: rgb(38 53 66) !important;
+  color: rgb(246 243 237) !important;
+  border-color: rgb(91 108 120) !important;
+}
+
+.dark aside[aria-label="Ojas"] input::placeholder,
+.dark aside[aria-label="Ojas"] textarea::placeholder {
+  color: rgb(176 188 197) !important;
+}
+
+
+/* ---------- Bot informational cards ---------- */
+
+.dark aside[aria-label="Ojas"] [class~="bg-gold/[0.08]"] {
+  background: rgb(221 184 111 / 0.12) !important;
+}
+
+.dark aside[aria-label="Ojas"] [class~="bg-gold/[0.06]"] {
+  background: rgb(221 184 111 / 0.10) !important;
+}
+
+
+/* ---------- Selection / focus ---------- */
+
+.dark aside[aria-label="Ojas"] ::selection {
+  background: rgb(221 184 111 / 0.30);
+  color: rgb(255 255 255);
+}
+
+
+/* ================================================================
+   FINAL PROFESSIONAL DARK-MODE / SPACING PASS
+   ================================================================ */
+
+/* ------------------------------------------------
+   DARK NAVBAR
+   ------------------------------------------------ */
+
+.dark header[class*="bg-[#F8F5EF]"] {
+  background: rgb(18 32 45 / 0.96) !important;
+  border-bottom-color: rgb(255 255 255 / 0.08) !important;
+  box-shadow: 0 8px 30px rgb(0 0 0 / 0.22) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] nav > a {
+  color: rgb(246 243 237) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] nav > a:hover {
+  color: rgb(225 188 112) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] nav > a > span > span:last-child {
+  color: rgb(190 201 209) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] nav > div a {
+  color: rgb(190 201 209) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] nav > div a:hover,
+.dark header[class*="bg-[#F8F5EF]"] nav > div a[aria-current="page"] {
+  color: rgb(246 243 237) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] button[aria-label*="theme"] {
+  background: rgb(255 255 255 / 0.07) !important;
+  border-color: rgb(255 255 255 / 0.12) !important;
+  color: rgb(246 243 237) !important;
+}
+
+
+/* ------------------------------------------------
+   HERO — CLEAR PRIMARY CTA IN DARK MODE
+   ------------------------------------------------ */
+
+.dark #home button:first-of-type {
+  background: rgb(225 188 112) !important;
+  color: rgb(18 32 45) !important;
+  border-color: rgb(225 188 112) !important;
+  box-shadow: 0 12px 35px rgb(0 0 0 / 0.28) !important;
+}
+
+.dark #home button:first-of-type:hover {
+  background: rgb(239 207 143) !important;
+  color: rgb(18 32 45) !important;
+}
+
+
+/* ------------------------------------------------
+   REVIEWS — COMPACT, PROFESSIONAL, NO DEAD SPACE
+   ------------------------------------------------ */
+
+#reviews {
+  padding-top: 3.25rem !important;
+  padding-bottom: 3rem !important;
+}
+
+#reviews > .container > div > div[class*="mt-8"] {
+  margin-top: 1.25rem !important;
+}
+
+#reviews > .container > div > div[class*="mt-12"] {
+  margin-top: 2rem !important;
+}
+
+#reviews [class*="min-h-[360px]"] {
+  min-height: 290px !important;
+}
+
+#reviews [class*="mt-8 flex items-center justify-between"] {
+  margin-top: 1.25rem !important;
+}
+
+#reviews [class*="mt-10 text-center"] {
+  margin-top: 1.5rem !important;
+}
+
+@media (min-width: 1024px) {
+  #reviews {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  #reviews [class*="min-h-[360px]"] {
+    min-height: 300px !important;
+  }
+}
+
+
+/* ------------------------------------------------
+   REVIEWS — DARK MODE SURFACES
+   ------------------------------------------------ */
+
+.dark #reviews {
+  background: rgb(29 43 56) !important;
+}
+
+.dark #reviews > .container {
+  color: rgb(246 243 237);
+}
+
+.dark #reviews article {
+  box-shadow: 0 12px 35px rgb(0 0 0 / 0.16) !important;
+}
+
+.dark #reviews article:nth-child(1) {
+  background: rgb(43 55 67) !important;
+  border-color: rgb(125 101 61) !important;
+}
+
+.dark #reviews article:nth-child(2) {
+  background: rgb(43 58 53) !important;
+  border-color: rgb(86 108 87) !important;
+}
+
+.dark #reviews article:nth-child(3) {
+  background: rgb(60 51 51) !important;
+  border-color: rgb(119 88 78) !important;
+}
+
+
+/* ------------------------------------------------
+   CHATBOT — MATURE BUSINESS UI
+   Remove speech-bubble / childish rounded treatment.
+   ------------------------------------------------ */
+
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] {
+  border-radius: 10px !important;
+  border: 1px solid rgb(var(--c-line)) !important;
+  background: rgb(var(--c-bg)) !important;
+  color: rgb(var(--c-ink)) !important;
+  box-shadow: none !important;
+}
+
+.dark aside[aria-label="Ojas"] [class*="rounded-bl-md"] {
+  background: rgb(48 65 78) !important;
+  border-color: rgb(91 108 120) !important;
+  color: rgb(246 243 237) !important;
+}
+
+
+/* User messages stay simple and professional. */
+
+aside[aria-label="Ojas"] [class*="rounded-br-md"] {
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+
+
+/* Remove decorative bubble-tail feel completely. */
+
+aside[aria-label="Ojas"] [class*="rounded-bl-md"]::before,
+aside[aria-label="Ojas"] [class*="rounded-bl-md"]::after,
+aside[aria-label="Ojas"] [class*="rounded-br-md"]::before,
+aside[aria-label="Ojas"] [class*="rounded-br-md"]::after {
+  display: none !important;
+}
+
+
+/* ------------------------------------------------
+   CHATBOT — EQUAL PROFESSIONAL MENU CARDS
+   ------------------------------------------------ */
+
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 {
+  grid-auto-rows: 78px;
+}
+
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 > button {
+  height: 78px;
+  min-height: 78px;
+  padding: 0.85rem 1rem !important;
+  border-radius: 12px !important;
+}
+
+.dark aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 > button {
+  background: rgb(48 65 78) !important;
+  border-color: rgb(91 108 120) !important;
+}
+
+.dark aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 > button:hover {
+  background: rgb(54 72 85) !important;
+  border-color: rgb(221 184 111 / 0.55) !important;
+}
+
+
+/* ------------------------------------------------
+   CHATBOT — LESS ROUNDED / MORE PREMIUM
+   ------------------------------------------------ */
+
+aside[aria-label="Ojas"] {
+  border-radius: 16px !important;
+}
+
+aside[aria-label="Ojas"] header {
+  border-radius: 16px 16px 0 0 !important;
+}
+
+aside[aria-label="Ojas"] .rounded-xl {
+  border-radius: 10px !important;
+}
+
+
+/* ------------------------------------------------
+   CHATBOT — DARK CONTENT CARDS
+   ------------------------------------------------ */
+
+.dark aside[aria-label="Ojas"] [class~="bg-white"] {
+  background: rgb(42 58 72) !important;
+  border-color: rgb(76 94 108) !important;
+}
+
+.dark aside[aria-label="Ojas"] [class~="bg-white"] .text-ink {
+  color: rgb(246 243 237) !important;
+}
+
+.dark aside[aria-label="Ojas"] [class~="bg-white"] .text-muted {
+  color: rgb(190 201 209) !important;
+}
+
+
+/* ------------------------------------------------
+   CHATBOT — REMOVE VISUAL NOISE
+   ------------------------------------------------ */
+
+aside[aria-label="Ojas"] .shadow-sm,
+aside[aria-label="Ojas"] .shadow-md {
+  box-shadow: none !important;
+}
+
+
+/* ================================================================
+   OJAS INN — PROFESSIONAL UI FINAL PASS
+   Bot welcome fit + mature concierge styling + compact reviews
+   + dark navbar + dark hero CTA.
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   DARK MODE — SCROLLED NAVBAR
+   ---------------------------------------------------------------- */
+
+.dark header[class*="bg-[#F8F5EF]"] {
+  background: rgb(15 35 53 / 0.94) !important;
+  border-bottom-color: rgb(255 255 255 / 0.10) !important;
+  box-shadow: 0 8px 30px rgb(0 0 0 / 0.28) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] a[class*="text-[#102337]"] {
+  color: rgb(246 243 237) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] a[class*="text-[#657383]"] {
+  color: rgb(190 201 209) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] a[class*="text-[#657383]"]:hover,
+.dark header[class*="bg-[#F8F5EF]"] a[class*="text-[#102337]"]:hover {
+  color: rgb(221 184 111) !important;
+}
+
+/* OJAS INN tagline */
+.dark header[class*="bg-[#F8F5EF]"] a span span[class*="text-white/55"] {
+  color: rgb(190 201 209 / 0.72) !important;
+}
+
+/* Theme toggle + mobile menu */
+.dark header[class*="bg-[#F8F5EF]"] button[aria-label*="Switch to"],
+.dark header[class*="bg-[#F8F5EF]"] button[aria-label="Open menu"] {
+  color: rgb(246 243 237) !important;
+  border-color: rgb(255 255 255 / 0.14) !important;
+  background: rgb(255 255 255 / 0.06) !important;
+}
+
+.dark header[class*="bg-[#F8F5EF]"] button[aria-label*="Switch to"]:hover,
+.dark header[class*="bg-[#F8F5EF]"] button[aria-label="Open menu"]:hover {
+  border-color: rgb(221 184 111 / 0.60) !important;
+  background: rgb(255 255 255 / 0.10) !important;
+}
+
+/* ----------------------------------------------------------------
+   DARK MODE — HERO PRIMARY CTA
+   ---------------------------------------------------------------- */
+
+.dark #home button:first-of-type {
+  background: rgb(225 188 112) !important;
+  color: rgb(18 32 45) !important;
+  border: 1px solid rgb(255 225 160 / 0.35) !important;
+  box-shadow: 0 12px 35px rgb(0 0 0 / 0.34) !important;
+}
+
+.dark #home button:first-of-type:hover {
+  background: rgb(240 211 143) !important;
+  color: rgb(18 32 45) !important;
+}
+
+/* ----------------------------------------------------------------
+   OJAS BOT — COMPACT WELCOME SCREEN
+   The welcome screen must fit intro + all 9 choices without scroll.
+   ---------------------------------------------------------------- */
+
+aside[aria-label="Ojas"] {
+  height: min(760px, calc(100dvh - 1rem)) !important;
+  max-height: calc(100dvh - 1rem) !important;
+}
+
+/* Smaller, cleaner header */
+aside[aria-label="Ojas"] > header {
+  padding: 0.75rem 1rem !important;
+}
+
+aside[aria-label="Ojas"] > header [class*="h-9"][class*="w-9"] {
+  height: 2.5rem !important;
+  width: 2.5rem !important;
+}
+
+/* Content gets more usable vertical space */
+aside[aria-label="Ojas"] > div[class*="overflow-y-auto"] {
+  padding: 0.75rem !important;
+}
+
+/* Professional message container:
+   no speech-bubble tails / no childish rounded corners. */
+aside[aria-label="Ojas"] [class*="rounded-bl-md"],
+aside[aria-label="Ojas"] [class*="rounded-br-md"] {
+  border-radius: 12px !important;
+  padding: 0.75rem 0.9rem !important;
+  box-shadow: none !important;
+}
+
+/* Welcome message typography */
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p {
+  line-height: 1.35 !important;
+}
+
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p:first-child {
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+}
+
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p:nth-child(2) {
+  margin-top: 0.15rem !important;
+  font-size: 0.88rem !important;
+}
+
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p:nth-child(3) {
+  margin-top: 0.35rem !important;
+  font-size: 0.78rem !important;
+  line-height: 1.38 !important;
+}
+
+/* The 9-option welcome grid:
+   exactly 5 equal rows, no oversized final-row buttons. */
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 {
+  grid-template-rows: repeat(5, 78px) !important;
+  grid-auto-rows: 78px !important;
+  gap: 6px !important;
+}
+
+/* Every welcome choice has identical geometry */
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 > button {
+  height: 78px !important;
+  min-height: 78px !important;
+  max-height: 78px !important;
+  padding: 0.65rem 0.85rem !important;
+  border-radius: 11px !important;
+  line-height: 1.25 !important;
+  font-size: 0.82rem !important;
+  box-shadow: none !important;
+}
+
+/* Keep icons visually restrained */
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 > button svg {
+  height: 1rem !important;
+  width: 1rem !important;
+  flex-shrink: 0 !important;
+}
+
+/* Dark bot surfaces */
+.dark aside[aria-label="Ojas"] {
+  background: rgb(29 43 56) !important;
+  border-color: rgb(76 94 108) !important;
+}
+
+.dark aside[aria-label="Ojas"] > div[class*="overflow-y-auto"] {
+  background: rgb(29 43 56) !important;
+}
+
+.dark aside[aria-label="Ojas"] > footer {
+  background: rgb(35 50 63) !important;
+  border-color: rgb(76 94 108) !important;
+}
+
+/* Dark welcome message */
+.dark aside[aria-label="Ojas"] [class*="rounded-bl-md"] {
+  background: rgb(42 58 72) !important;
+  border-color: rgb(91 108 120) !important;
+  color: rgb(246 243 237) !important;
+}
+
+/* Dark choice cards */
+.dark aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 > button {
+  background: rgb(48 65 78) !important;
+  border-color: rgb(91 108 120) !important;
+  color: rgb(246 243 237) !important;
+}
+
+.dark aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 > button:hover {
+  background: rgb(57 74 87) !important;
+  border-color: rgb(221 184 111 / 0.65) !important;
+}
+
+/* ----------------------------------------------------------------
+   OJAS BOT — MATURE INTERNAL CARDS
+   ---------------------------------------------------------------- */
+
+aside[aria-label="Ojas"] [class*="rounded-xl"] {
+  border-radius: 10px;
+}
+
+/* ----------------------------------------------------------------
+   REVIEWS — COMPACT PROFESSIONAL LAYOUT
+   ---------------------------------------------------------------- */
+
+#reviews {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+
+#reviews .container {
+  position: relative;
+}
+
+/* Smaller heading */
+#reviews h2 {
+  font-size: clamp(2.25rem, 5vw, 3.6rem) !important;
+  line-height: 1.02 !important;
+}
+
+#reviews h2 + p {
+  margin-top: 0.7rem !important;
+  line-height: 1.45 !important;
+}
+
+/* Rating block closer to heading */
+#reviews [class*="mt-8"][class*="justify-center"] {
+  margin-top: 1.25rem !important;
+}
+
+/* Review cards — remove excessive 360px minimum */
+#reviews [class*="min-h-[360px]"] {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 1.25rem !important;
+  border-radius: 18px !important;
+  box-shadow: 0 10px 28px rgb(50 40 25 / 0.05) !important;
+}
+
+/* Remove oversized decorative quote */
+#reviews article svg[class*="h-20"] {
+  height: 3.75rem !important;
+  width: 3.75rem !important;
+  opacity: 0.55 !important;
+}
+
+/* Compact review content */
+#reviews article blockquote {
+  margin-top: 1rem !important;
+  font-size: 1.05rem !important;
+  line-height: 1.4 !important;
+}
+
+#reviews article [class*="mt-8"][class*="border-t"] {
+  margin-top: 1rem !important;
+  padding-top: 0.8rem !important;
+}
+
+/* Smaller review controls */
+#reviews [class*="mt-8"][class*="justify-between"] {
+  margin-top: 1rem !important;
+}
+
+#reviews [class*="mt-8"][class*="justify-between"] button {
+  height: 2.4rem !important;
+  width: 2.4rem !important;
+}
+
+/* Bottom CTA closer to content */
+#reviews [class*="mt-10"][class*="text-center"] {
+  margin-top: 1.25rem !important;
+}
+
+#reviews [class*="mt-10"][class*="text-center"] a {
+  padding: 0.65rem 1.15rem !important;
+}
+
+/* Smaller atmospheric decoration */
+#reviews > .absolute {
+  opacity: 0.45;
+  transform: scale(0.72);
+}
+
+/* ----------------------------------------------------------------
+   REVIEWS — DARK MODE
+   ---------------------------------------------------------------- */
+
+.dark #reviews {
+  background: rgb(29 43 56) !important;
+}
+
+.dark #reviews article {
+  background: rgb(42 58 72) !important;
+  border-color: rgb(76 94 108) !important;
+  color: rgb(246 243 237) !important;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.22) !important;
+}
+
+.dark #reviews article blockquote,
+.dark #reviews article p {
+  color: rgb(246 243 237) !important;
+}
+
+.dark #reviews article [class*="text-muted"],
+.dark #reviews article [class*="text-xs"] {
+  color: rgb(190 201 209) !important;
+}
+
+.dark #reviews article [class*="bg-white/70"] {
+  background: rgb(255 255 255 / 0.08) !important;
+  color: rgb(190 201 209) !important;
+}
+
+.dark #reviews article [class*="border-black/5"] {
+  border-color: rgb(255 255 255 / 0.10) !important;
+}
+
+.dark #reviews [class*="bg-white/80"] {
+  background: rgb(42 58 72 / 0.95) !important;
+  border-color: rgb(91 108 120) !important;
+  color: rgb(246 243 237) !important;
+}
+
+.dark #reviews [class*="bg-white/80"]:hover {
+  background: rgb(48 65 78 / 1) !important;
+}
+
+.dark #reviews [class*="bg-[#f4ead9]"] {
+  background: rgb(221 184 111 / 0.14) !important;
+  color: rgb(235 210 160) !important;
+}
+
+/* ----------------------------------------------------------------
+   SMALLER VIEWPORT SAFETY
+   ---------------------------------------------------------------- */
+
+@media (max-height: 760px) {
+  aside[aria-label="Ojas"] {
+    height: calc(100dvh - 0.5rem) !important;
+    max-height: calc(100dvh - 0.5rem) !important;
+  }
+
+  aside[aria-label="Ojas"] > header {
+    padding-top: 0.55rem !important;
+    padding-bottom: 0.55rem !important;
+  }
+
+  aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 {
+    grid-template-rows: repeat(5, 64px) !important;
+    grid-auto-rows: 64px !important;
+  }
+
+  aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 > button {
+    height: 64px !important;
+    min-height: 64px !important;
+    max-height: 64px !important;
+    font-size: 0.74rem !important;
+  }
+
+  aside[aria-label="Ojas"] [class*="rounded-bl-md"],
+  aside[aria-label="Ojas"] [class*="rounded-br-md"] {
+    padding: 0.6rem 0.75rem !important;
+  }
+}
+
+@media (max-width: 420px) {
+  aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5 > button {
+    padding-left: 0.65rem !important;
+    padding-right: 0.65rem !important;
+    font-size: 0.76rem !important;
+  }
+}
+
+/* ================================================================
+   OJAS BOT — FINAL WELCOME MENU SIZING
+   Normal compact buttons, equal height, no stretched grid rows.
+   ================================================================ */
+
+/* Do NOT let the welcome grid stretch inside the scroll area */
+aside[aria-label="Ojas"] .grid.grid-cols-2 {
+  align-content: start !important;
+  grid-auto-rows: auto !important;
+}
+
+/* Welcome menu buttons: compact, equal, professional */
+aside[aria-label="Ojas"] .grid.grid-cols-2 > button {
+  height: 58px !important;
+  min-height: 58px !important;
+  max-height: 58px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 10px !important;
+  font-size: 0.82rem !important;
+  line-height: 1.25 !important;
+  box-shadow: none !important;
+}
+
+/* Keep the final single option the same size as every other option */
+aside[aria-label="Ojas"] .grid.grid-cols-2 > button:last-child {
+  height: 58px !important;
+  min-height: 58px !important;
+  max-height: 58px !important;
+}
+
+/* Smaller gap between menu items */
+aside[aria-label="Ojas"] .grid.grid-cols-2 {
+  gap: 6px !important;
+}
+
+/* Compact welcome message */
+aside[aria-label="Ojas"] [class*="rounded-bl-md"],
+aside[aria-label="Ojas"] [class*="rounded-br-md"] {
+  padding: 0.75rem 0.85rem !important;
+  border-radius: 10px !important;
+}
+
+/* Remove unnecessary spacing inside welcome copy */
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p,
+aside[aria-label="Ojas"] [class*="rounded-br-md"] p {
+  margin-top: 0.2rem !important;
+}
+
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p:first-child,
+aside[aria-label="Ojas"] [class*="rounded-br-md"] p:first-child {
+  margin-top: 0 !important;
+}
+
+/* On short screens make the menu even tighter */
+@media (max-height: 800px) {
+  aside[aria-label="Ojas"] .grid.grid-cols-2 > button {
+    height: 54px !important;
+    min-height: 54px !important;
+    max-height: 54px !important;
+  }
+
+  aside[aria-label="Ojas"] .grid.grid-cols-2 {
+    gap: 5px !important;
+  }
+}
+
+/* Small phones */
+@media (max-width: 420px) {
+  aside[aria-label="Ojas"] .grid.grid-cols-2 > button {
+    height: 56px !important;
+    min-height: 56px !important;
+    max-height: 56px !important;
+    padding-left: 0.65rem !important;
+    padding-right: 0.65rem !important;
+    font-size: 0.76rem !important;
+  }
+}
+
+
+/* ================================================================
+   OJAS BOT — FINAL MENU BALANCE
+   Equal compact cards with proper spacing and readable text.
+   ================================================================ */
+
+/* Welcome menu */
+aside[aria-label="Ojas"] .grid.grid-cols-2 {
+  align-content: start !important;
+  grid-auto-rows: 64px !important;
+  gap: 8px !important;
+}
+
+/* Every menu option is exactly the same size */
+aside[aria-label="Ojas"] .grid.grid-cols-2 > button {
+  height: 64px !important;
+  min-height: 64px !important;
+  max-height: 64px !important;
+
+  padding: 0 0.75rem !important;
+
+  border-radius: 10px !important;
+
+  font-size: 0.72rem !important;
+  line-height: 1.2 !important;
+
+  box-shadow: none !important;
+}
+
+/* Keep icon proportions balanced */
+aside[aria-label="Ojas"] .grid.grid-cols-2 > button svg {
+  width: 0.9rem !important;
+  height: 0.9rem !important;
+  flex-shrink: 0 !important;
+}
+
+/* Prevent long labels from breaking into ugly 3-line layouts */
+aside[aria-label="Ojas"] .grid.grid-cols-2 > button > span {
+  line-height: 1.2 !important;
+}
+
+/* Compact welcome information panel */
+aside[aria-label="Ojas"] [class*="rounded-bl-md"],
+aside[aria-label="Ojas"] [class*="rounded-br-md"] {
+  padding: 0.7rem 0.8rem !important;
+  border-radius: 10px !important;
+}
+
+/* Smaller welcome typography */
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p,
+aside[aria-label="Ojas"] [class*="rounded-br-md"] p {
+  line-height: 1.3 !important;
+}
+
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p:first-child,
+aside[aria-label="Ojas"] [class*="rounded-br-md"] p:first-child {
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  margin-top: 0 !important;
+}
+
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p:nth-child(2),
+aside[aria-label="Ojas"] [class*="rounded-br-md"] p:nth-child(2) {
+  font-size: 0.8rem !important;
+}
+
+aside[aria-label="Ojas"] [class*="rounded-bl-md"] p:nth-child(3),
+aside[aria-label="Ojas"] [class*="rounded-br-md"] p:nth-child(3) {
+  font-size: 0.7rem !important;
+  line-height: 1.3 !important;
+}
+
+/* Small screens */
+@media (max-width: 420px) {
+  aside[aria-label="Ojas"] .grid.grid-cols-2 {
+    grid-auto-rows: 62px !important;
+    gap: 7px !important;
+  }
+
+  aside[aria-label="Ojas"] .grid.grid-cols-2 > button {
+    height: 62px !important;
+    min-height: 62px !important;
+    max-height: 62px !important;
+    font-size: 0.7rem !important;
+    padding: 0 0.6rem !important;
+  }
+}
+
+
+/* ================================================================
+   OJAS BOT — FACILITIES SCREEN
+   Fit all facility options into the first view.
+   ================================================================ */
+
+/* Facilities list uses div children, while the welcome menu uses
+   button children. This keeps this change isolated to Facilities. */
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> div) {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-auto-rows: 34px !important;
+  gap: 5px !important;
+  align-content: start !important;
+}
+
+/* Compact facility item */
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> div) > div {
+  min-height: 34px !important;
+  height: 34px !important;
+  padding: 0 0.5rem !important;
+  gap: 0.35rem !important;
+  border-radius: 7px !important;
+  font-size: 0.62rem !important;
+  line-height: 1.15 !important;
+}
+
+/* Smaller check icon */
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> div) > div svg {
+  width: 0.7rem !important;
+  height: 0.7rem !important;
+  flex-shrink: 0 !important;
+}
+
+/* Facility description above the list */
+aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> div)
+  ~ * {
+  margin-top: 0.5rem;
+}
+
+/* Tighten the facilities explanatory message */
+aside[aria-label="Ojas"] [class*="rounded-bl-md"]
+  + .grid.grid-cols-2.gap-1\.5:has(> div) {
+  margin-top: 0.5rem !important;
+}
+
+/* Small screens: retain 3 columns so the full list remains compact */
+@media (max-width: 420px) {
+  aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> div) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    grid-auto-rows: 32px !important;
+    gap: 4px !important;
+  }
+
+  aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> div) > div {
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 0.35rem !important;
+    font-size: 0.56rem !important;
+  }
+
+  aside[aria-label="Ojas"] .grid.grid-cols-2.gap-1\.5:has(> div) > div svg {
+    width: 0.62rem !important;
+    height: 0.62rem !important;
+  }
+}
+
+
+/* ================================================================
+   OJAS BOT — LOCATION ANSWER FINAL FIX
+   The previous facilities selector also matched the nearby-location
+   grid. Restore the location cards to their own proper layout.
+   ================================================================ */
+
+/* Location nearby grid only:
+   identified by its child title paragraphs. */
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  grid-auto-rows: auto !important;
+  gap: 8px !important;
+  align-content: start !important;
+}
+
+/* Properly sized nearby cards */
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div {
+  height: auto !important;
+  min-height: 58px !important;
+  max-height: none !important;
+
+  padding: 0.6rem 0.7rem !important;
+
+  border-radius: 9px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+/* Nearby place names */
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div > p:first-child {
+  font-size: 0.72rem !important;
+  line-height: 1.2 !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Nearby descriptions */
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div > p:nth-child(2) {
+  margin-top: 0.2rem !important;
+  font-size: 0.64rem !important;
+  line-height: 1.25 !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Compact the address card immediately before the nearby grid */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"]) {
+  padding: 0.7rem !important;
+}
+
+/* Address text */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"])
+  p {
+  line-height: 1.35 !important;
+}
+
+/* Smaller address icon */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"])
+  span {
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+/* Tighten the Location explanatory message */
+aside[aria-label="Ojas"]
+  [class*="rounded-bl-md"]:has(+ .rounded-xl.border) {
+  padding: 0.65rem 0.8rem !important;
+}
+
+/* Directions button */
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"])
+  + a.btn {
+  margin-top: 0.6rem !important;
+  min-height: 42px !important;
+}
+
+/* Mobile: keep two clean columns */
+@media (max-width: 420px) {
+  aside[aria-label="Ojas"]
+    .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+  }
+
+  aside[aria-label="Ojas"]
+    .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div {
+    min-height: 54px !important;
+    padding: 0.5rem 0.55rem !important;
+  }
+
+  aside[aria-label="Ojas"]
+    .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div > p:first-child {
+    font-size: 0.68rem !important;
+  }
+
+  aside[aria-label="Ojas"]
+    .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div > p:nth-child(2) {
+    font-size: 0.59rem !important;
+  }
+}
+
+/* Dark mode */
+.dark aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div {
+  background: rgb(42 58 72) !important;
+  border-color: rgb(91 108 120) !important;
+  color: rgb(246 243 237) !important;
+}
+
+.dark aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div > p:first-child {
+  color: rgb(246 243 237) !important;
+}
+
+.dark aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div > p:nth-child(2) {
+  color: rgb(190 201 209) !important;
+}
+
+
+/* ================================================================
+   OJAS BOT — LOCATION SPACING PASS
+   ================================================================ */
+
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) {
+  gap: 12px !important;
+}
+
+/* More separation between address and nearby locations */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"])
+  + .grid.grid-cols-2 {
+  margin-top: 12px !important;
+}
+
+/* More breathing room inside nearby cards */
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) > div {
+  padding: 0.75rem 0.8rem !important;
+}
+
+/* Keep the Directions button separated from the cards */
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"])
+  + a.btn {
+  margin-top: 12px !important;
+}
+
+/* Mobile: slightly tighter, but still clearly separated */
+@media (max-width: 420px) {
+  aside[aria-label="Ojas"]
+    .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) {
+    gap: 9px !important;
+  }
+
+  aside[aria-label="Ojas"]
+    .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"])
+    + .grid.grid-cols-2 {
+    margin-top: 10px !important;
+  }
+}
+
+
+/* ================================================================
+   OJAS BOT — LOCATION CONTENT RHYTHM
+   Consistent spacing between every information block.
+   ================================================================ */
+
+/* Location question/header block */
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"]) {
+  margin-top: 12px !important;
+}
+
+/* Description -> Address */
+aside[aria-label="Ojas"]
+  [class*="rounded-bl-md"]:has(+ .rounded-xl.border) {
+  margin-bottom: 12px !important;
+}
+
+/* Address card -> Nearby cards */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"]) {
+  margin-bottom: 12px !important;
+}
+
+/* Give the address card proper internal breathing room */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"]) {
+  padding: 0.85rem !important;
+}
+
+/* Address heading */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"])
+  p[class*="font-semibold"] {
+  margin-bottom: 4px !important;
+}
+
+/* Address lines have controlled spacing instead of being stacked tightly */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"])
+  p:not([class*="font-semibold"]) {
+  margin-top: 2px !important;
+}
+
+/* Nearby cards -> Directions */
+aside[aria-label="Ojas"]
+  .grid.grid-cols-2:has(> div > p[class*="font-semibold"])
+  + a.btn {
+  margin-top: 12px !important;
+}
+
+/* Location title / question itself */
+aside[aria-label="Ojas"] > div[class*="overflow-y-auto"] > div > div:first-child {
+  margin-bottom: 4px;
+}
+
+/* Mobile retains the same visual rhythm */
+@media (max-width: 420px) {
+  aside[aria-label="Ojas"]
+    [class*="rounded-bl-md"]:has(+ .rounded-xl.border) {
+    margin-bottom: 10px !important;
+  }
+
+  aside[aria-label="Ojas"]
+    .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"]) {
+    margin-bottom: 10px !important;
+    padding: 0.75rem !important;
+  }
+
+  aside[aria-label="Ojas"]
+    .grid.grid-cols-2:has(> div > p[class*="font-semibold"])
+    + a.btn {
+    margin-top: 10px !important;
+  }
+}
+
+
+/* ================================================================
+   OJAS BOT — LOCATION VERTICAL RHYTHM
+   Clear separation between every Location information block.
+   ================================================================ */
+
+/* Back -> Location heading */
+aside[aria-label="Ojas"]
+  > div[class*="overflow-y-auto"]
+  > div[class*="space-y-3"]
+  > button.mb-1 {
+  margin-bottom: 16px !important;
+}
+
+/* Location heading -> its content */
+aside[aria-label="Ojas"]
+  > div[class*="overflow-y-auto"]
+  > div[class*="space-y-3"]
+  > div:has(> div > div > p[class*="font-medium"]) {
+  margin-top: 0 !important;
+}
+
+/* Description -> Address card */
+aside[aria-label="Ojas"]
+  > div[class*="overflow-y-auto"]
+  > div[class*="space-y-3"]
+  > div:has(> div > div > p[class*="font-medium"])
+  > div:first-child {
+  margin-bottom: 18px !important;
+}
+
+/* Address card -> Nearby cards */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"]) {
+  margin-bottom: 16px !important;
+}
+
+/* Keep address card itself comfortable */
+aside[aria-label="Ojas"]
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"]) {
+  padding: 0.9rem !important;
+}
+
+/* Mobile spacing */
+@media (max-width: 420px) {
+
+  aside[aria-label="Ojas"]
+    > div[class*="overflow-y-auto"]
+    > div[class*="space-y-3"]
+    > button.mb-1 {
+    margin-bottom: 14px !important;
+  }
+
+  aside[aria-label="Ojas"]
+    > div[class*="overflow-y-auto"]
+    > div[class*="space-y-3"]
+    > div:has(> div > div > p[class*="font-medium"])
+    > div:first-child {
+    margin-bottom: 14px !important;
+  }
+
+  aside[aria-label="Ojas"]
+    .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"]) {
+    margin-bottom: 12px !important;
+  }
+}
+
+
+/* ================================================================
+   OJAS BOT — LOCATION LAYOUT
+   One predictable vertical rhythm for the entire Location answer.
+   ================================================================ */
+
+aside[aria-label="Ojas"] .ojas-bot-location {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  margin: 0 !important;
+}
+
+/* Description, address, nearby grid and button are separated
+   exclusively by the parent gap. */
+aside[aria-label="Ojas"] .ojas-bot-location > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Address typography */
+aside[aria-label="Ojas"] .ojas-bot-location .rounded-xl.border {
+  min-width: 0 !important;
+}
+
+aside[aria-label="Ojas"] .ojas-bot-location .rounded-xl.border p {
+  overflow-wrap: anywhere !important;
+}
+
+/* Nearby cards */
+aside[aria-label="Ojas"] .ojas-bot-location-nearby {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  margin: 0 !important;
+}
+
+aside[aria-label="Ojas"] .ojas-bot-location-nearby > div {
+  height: auto !important;
+  min-height: 58px !important;
+  max-height: none !important;
+  padding: 12px !important;
+  margin: 0 !important;
+}
+
+aside[aria-label="Ojas"] .ojas-bot-location-nearby p {
+  margin-top: 0 !important;
+}
+
+aside[aria-label="Ojas"] .ojas-bot-location-nearby p + p {
+  margin-top: 4px !important;
+}
+
+/* Mobile */
+@media (max-width: 420px) {
+  aside[aria-label="Ojas"] .ojas-bot-location {
+    gap: 14px !important;
+  }
+
+  aside[aria-label="Ojas"] .ojas-bot-location-nearby {
+    gap: 9px !important;
+  }
+
+  aside[aria-label="Ojas"] .ojas-bot-location-nearby > div {
+    padding: 10px !important;
+  }
+}
+
+
+/* ================================================================
+   OJAS BOT — LOCATION: REMOVE DUPLICATE ADDRESS/NEARBY SPACING
+   Parent gap is the only spacing source between these blocks.
+   ================================================================ */
+
+aside[aria-label="Ojas"] .ojas-bot-location {
+  gap: 12px !important;
+}
+
+/* Address card: no extra bottom margin */
+aside[aria-label="Ojas"]
+  .ojas-bot-location
+  .rounded-xl.border:has(+ .grid.grid-cols-2 > div > p[class*="font-semibold"]) {
+  margin-bottom: 0 !important;
+}
+
+/* Nearby grid: no extra top margin */
+aside[aria-label="Ojas"]
+  .ojas-bot-location
+  .rounded-xl.border
+  + .ojas-bot-location-nearby {
+  margin-top: 0 !important;
+}
+
+/* Nearby cards keep their own internal grid spacing */
+aside[aria-label="Ojas"] .ojas-bot-location-nearby {
+  gap: 12px !important;
+}
+
+/* Mobile */
+@media (max-width: 420px) {
+  aside[aria-label="Ojas"] .ojas-bot-location {
+    gap: 10px !important;
+  }
+
+  aside[aria-label="Ojas"] .ojas-bot-location-nearby {
+    gap: 9px !important;
+  }
+}
+
