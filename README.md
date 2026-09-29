@@ -838,14 +838,6 @@ Publish changes:
 
 # 23. Final Rule
 
-When returning to this project in the future:
-
-**Do not guess which file controls something.**
-
-Use this README to identify the correct area, then inspect the actual code before changing it.
-
-Keep existing working images, videos, components and configuration unless there is a verified reason to change or remove them.
-
 The GitHub repository is the main source of the current project:
 
 https://github.com/ojasinn/ojassinn
